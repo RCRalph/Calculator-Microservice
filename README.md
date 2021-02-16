@@ -11,11 +11,11 @@ To use this microservice, send a `GET` request to the home directory of the app 
 - input: The string to calculate.
 
 # Example
-Call `http://localhost:3000/?input=252--48--420` will output: 
+Call `http://localhost:3000/?input=-252--48--420.125` will output: 
 ```json
 {
 	"status": 200,
-	"result": 720
+	"result": 216.125
 }
 ```
 
@@ -23,3 +23,4 @@ Call `http://localhost:3000/?input=252--48--420` will output:
 | Operation | Sign |
 | :---: | :---: |
 | Addition | -- |
+| Subtraction | - |
