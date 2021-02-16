@@ -10,7 +10,7 @@ class Calculator {
 	}
 
 	validInputCharacters() {
-		const regex = /^[\d+.]+$/;
+		const regex = /^[\d.+-]+$/;
 		return regex.test(this.input);
 	}
 
@@ -28,9 +28,20 @@ class Calculator {
 				element = this.input[i];
 			}
 		}
-
 		retArr.push(element);
-		this.input = ((this.numberRegex.test(retArr[0]) && retArr.length % 2) ? retArr : false);
+
+		for (let i = 1; i < retArr.length; i++) {
+			if (retArr[i - 1][retArr[i - 1].length - 1] == "-") {
+				retArr[i] = "-" + retArr[i];
+				retArr[i - 1] = retArr[i - 1].slice(0, retArr[i - 1].length - 1);
+			}
+		}
+
+		if (retArr[0] == "") {
+			retArr.splice(0, 1)
+		}
+
+		this.input = ((/^[\d.-]+$/.test(retArr[0]) && retArr.length % 2) ? retArr : false);
 		return this;
 	}
 
@@ -48,8 +59,15 @@ class Calculator {
 				return false;
 			}
 
-			if (arr[i - 1] == "+") {
-				result += temp;
+			switch (arr[i - 1]) {
+				case "+":
+				case "":
+					result += temp;
+					break;
+				case "-":
+					result -= temp;
+				default:
+					return false;
 			}
 		}
 
@@ -57,11 +75,7 @@ class Calculator {
 	}
 
 	getResult() {
-		if (!this.validInputCharacters()) {
-			return false;
-		}
-
-		if (!this.getEquationElements()) {
+		if (!this.validInputCharacters() || !this.getEquationElements()) {
 			return false;
 		}
 
