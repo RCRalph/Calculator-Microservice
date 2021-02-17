@@ -10,7 +10,7 @@ class Calculator {
 	}
 
 	validInputCharacters() {
-		const regex = /^[\d.\+\-\*]+$/;
+		const regex = /^[\d.\+\-\*\/\^]+$/;
 		return regex.test(this.input);
 	}
 
@@ -45,40 +45,62 @@ class Calculator {
 		return this;
 	}
 
-	calculateResult(arr = this.input) {
-		if (isNaN(arr[0])) {
+	calculateResult() {
+		if (isNaN(Number(this.input[0]))) {
 			return false;
 		}
 
-		for (let i = 2; i < arr.length; i += 2) {
-			const temp = Number(arr[i]);
+		// Handle exponention
+		for (let i = 2; i < this.input.length; i += 2) {
+			const temp = Number(this.input[i]);
 
 			if (isNaN(temp)) {
 				return false;
 			}
 
-			switch (arr[i - 1]) {
-				case "*":
-					arr[i - 2] *= temp;
-					arr.splice(i - 1, 2);
-					i -= 2;
-					break;
+			if (this.input[i - 1] == "^") {
+				this.input[i - 2] = Math.pow(Number(this.input[i - 2]), temp);
+				this.input.splice(i - 1, 2);
+				i -= 2;
 			}
 		}
 
-		let result = Number(arr[0]);
+		// Handle multiplication and division
+		for (let i = 2; i < this.input.length; i += 2) {
+			const temp = Number(this.input[i]);
+
+			if (isNaN(temp)) {
+				return false;
+			}
+
+			switch (this.input[i - 1]) {
+				case "*":
+					this.input[i - 2] *= temp;
+					this.input.splice(i - 1, 2);
+					i -= 2;
+					break;
+				case "/":
+					this.input[i - 2] /= temp;
+					this.input.splice(i - 1, 2);
+					i -= 2;
+					break;					
+			}
+		}
+
+		let result = Number(this.input[0]);
 		if (isNaN(result)) {
 			return false;
 		}
 
-		for (let i = 2; i < arr.length; i += 2) {
-			const temp = Number(arr[i]);
+		// Handle addition and subtraction
+		for (let i = 2; i < this.input.length; i += 2) {
+			const temp = Number(this.input[i]);
 
 			if (isNaN(temp)) {
 				return false;
 			}
 
-			switch (arr[i - 1]) {
+			switch (this.input[i - 1]) {
 				case "+":
 				case "":
 					result += temp;

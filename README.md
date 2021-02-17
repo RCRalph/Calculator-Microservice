@@ -19,8 +19,11 @@ Call `http://localhost:3000/?input=-252--48--420.125` will output:
 }
 ```
 
-# Operations
+# Operators
 | Operation | Sign |
 | :---: | :---: |
 | Addition | -- |
 | Subtraction | - |
+| Multiplication | * |
+| Division | / |
+| Exponention | ^ |
