@@ -10,7 +10,7 @@ class Calculator {
 	}
 
 	validInputCharacters() {
-		const regex = /^[\d.+-]+$/;
+		const regex = /^[\d.\+\-\*]+$/;
 		return regex.test(this.input);
 	}
 
@@ -46,8 +46,27 @@ class Calculator {
 	}
 
 	calculateResult(arr = this.input) {
-		let result = Number(arr[0]);
+		if (isNaN(arr[0])) {
+			return false;
+		}
 
+		for (let i = 2; i < arr.length; i += 2) {
+			const temp = Number(arr[i]);
+
+			if (isNaN(temp)) {
+				return false;
+			}
+
+			switch (arr[i - 1]) {
+				case "*":
+					arr[i - 2] *= temp;
+					arr.splice(i - 1, 2);
+					i -= 2;
+					break;
+			}
+		}
+
+		let result = Number(arr[0]);
 		if (isNaN(result)) {
 			return false;
 		}
@@ -66,6 +85,7 @@ class Calculator {
 					break;
 				case "-":
 					result -= temp;
+					break;
 				default:
 					return false;
 			}

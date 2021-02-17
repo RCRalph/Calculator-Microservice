@@ -32,5 +32,18 @@ describe("Validator Calculator.calculateResult()", () => {
 		expect(new Calculator("-54")
 			.getResult()
 		).to.equal(-54);
+
+		// Multiplication
+		expect(new Calculator("-25*12*654.4321")
+			.getResult()
+		).to.equal(-196329.63);
+
+		expect(new Calculator("25*12")
+			.getResult()
+		).to.equal(300);
+
+		expect(new Calculator("25*-12")
+			.getResult()
+		).to.equal(-300);
 	});
 })
