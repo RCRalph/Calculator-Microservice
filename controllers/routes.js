@@ -16,12 +16,14 @@ module.exports = (app) => {
 				if (value !== false) {
 					res.json({
 						status: 200,
+						input: req.query.input,
 						result: value
 					})
 				}
 				else {
 					res.json({
 						status: 422,
+						input: req.query.input,
 						message: "Invalid input"
 					});
 				}

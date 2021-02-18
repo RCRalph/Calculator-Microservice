@@ -94,6 +94,11 @@ describe("Validator Calculator.getEquationElements()", () => {
 			.getEquationElements()
 			.input
 		).to.eql(["-252", "+", ["48", "", "-25"], "^", "2", "*", "420.125", "/", "53"])
+
+		expect(new Calculator("(123--456)/(44.1234-4)")
+			.getEquationElements()
+			.input
+		).to.eql([["123", "+", "456"], "/", ["44.1234", "", "-4"]]);
 	});
 
 	it("Should return false for invalid array", () => {
