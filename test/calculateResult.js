@@ -89,5 +89,9 @@ describe("Validator Calculator.calculateResult()", () => {
 		expect(new Calculator("25^0-1")
 			.getResult()
 		).to.equal(0);
+
+		expect(new Calculator("-252--(48-25)^2*420.125/53")
+			.getResult()
+		).to.equal(-252 + (Math.pow(48-25, 2) * 420.125 / 53))
 	});
 })

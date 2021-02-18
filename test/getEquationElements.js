@@ -88,6 +88,12 @@ describe("Validator Calculator.getEquationElements()", () => {
 			.getEquationElements()
 			.input
 		).to.eql([["-25", "/", "12"], "^", "-654.4321"]);
+
+		// Mixed
+		expect(new Calculator("-252--(48-25)^2*420.125/53")
+			.getEquationElements()
+			.input
+		).to.eql(["-252", "+", ["48", "", "-25"], "^", "2", "*", "420.125", "/", "53"])
 	});
 
 	it("Should return false for invalid array", () => {

@@ -35,6 +35,11 @@ class Calculator {
 				inputRegexTest = this.numberRegex.test(this.input[i]);
 
 			if (this.input[i] == "(") {
+				if (element.length) {
+					retArr.push(element);
+					element = "";
+				}
+
 				let endBracketIndex = i + 1,
 					bracketCount = 1;
 				while (endBracketIndex < end && this.input[endBracketIndex] != ")" && bracketCount != 0) {
