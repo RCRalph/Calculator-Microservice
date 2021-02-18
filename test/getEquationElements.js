@@ -7,33 +7,87 @@ describe("Validator Calculator.getEquationElements()", () => {
 		expect(new Calculator("25--12")
 			.getEquationElements()
 			.input
-		).to.have.same.members(["25", "+", "12"]);
+		).to.eql(["25", "+", "12"]);
 
 		expect(new Calculator("25--12--654.4321")
 			.getEquationElements()
 			.input
-		).to.have.same.members(["25", "+", "12", "+", "654.4321"]);
+		).to.eql(["25", "+", "12", "+", "654.4321"]);
 
 		expect(new Calculator("54")
 			.getEquationElements()
 			.input
-		).to.have.same.members(["54"]);
+		).to.eql(["54"]);
 
 		// Subtraction
 		expect(new Calculator("25-12")
 			.getEquationElements()
 			.input
-		).to.have.same.members(["25", "" , "-12"]);
+		).to.eql(["25", "" , "-12"]);
 
 		expect(new Calculator("25---12")
 			.getEquationElements()
 			.input
-		).to.have.same.members(["25", "+", "-12"])
+		).to.eql(["25", "+", "-12"])
 
 		expect(new Calculator("-25-12--654.4321")
 			.getEquationElements()
 			.input
-		).to.have.same.members(["-25", "", "-12", "+", "654.4321"]);
+		).to.eql(["-25", "", "-12", "+", "654.4321"]);
+
+		// Multiplication
+		expect(new Calculator("25*12")
+			.getEquationElements()
+			.input
+		).to.eql(["25", "*" , "12"]);
+
+		expect(new Calculator("25*-12")
+			.getEquationElements()
+			.input
+		).to.eql(["25", "*", "-12"])
+
+		expect(new Calculator("-25*12--654.4321")
+			.getEquationElements()
+			.input
+		).to.eql(["-25", "*", "12", "+", "654.4321"]);
+
+		// Division
+		expect(new Calculator("25/12")
+			.getEquationElements()
+			.input
+		).to.eql(["25", "/" , "12"]);
+
+		expect(new Calculator("25/-12")
+			.getEquationElements()
+			.input
+		).to.eql(["25", "/", "-12"])
+
+		expect(new Calculator("-25/12*-654.4321")
+			.getEquationElements()
+			.input
+		).to.eql(["-25", "/", "12", "*", "-654.4321"]);
+
+		// Exponention
+		expect(new Calculator("25^12")
+			.getEquationElements()
+			.input
+		).to.eql(["25", "^" , "12"]);
+
+		expect(new Calculator("25^-12")
+			.getEquationElements()
+			.input
+		).to.eql(["25", "^", "-12"])
+
+		expect(new Calculator("-25/12^-654.4321")
+			.getEquationElements()
+			.input
+		).to.eql(["-25", "/", "12", "^", "-654.4321"]);
+
+		// Bracets
+		expect(new Calculator("(-25/12)^-654.4321")
+			.getEquationElements()
+			.input
+		).to.eql([["-25", "/", "12"], "^", "-654.4321"]);
 	});
 
 	it("Should return false for invalid array", () => {

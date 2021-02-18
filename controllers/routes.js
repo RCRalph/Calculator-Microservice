@@ -8,19 +8,29 @@ module.exports = (app) => {
 			})
 		}
 
-		const calc = new Calculator(req.query.input).getResult();
-
-		if (calc) {
-			res.json({
-				status: 200,
-				result: calc
+		new Promise((resolve) => {
+			resolve(new Calculator(req.query.input).getResult());
+		})
+			.then(value => {
+				if (value !== false) {
+					res.json({
+						status: 200,
+						result: value
+					})
+				}
+				else {
+					res.json({
+						status: 422,
+						message: "Invalid input"
+					});
+				}
+			})
+			.catch(err => {
+				console.error(err);
+				res.json({
+					status: 500,
+					message: "Server error"
+				})
 			});
-		}
-		else {
-			res.json({
-				status: 422,
-				message: "Invalid input"
-			});
-		}
 	})
 }
