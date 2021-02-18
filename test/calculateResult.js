@@ -76,9 +76,18 @@ describe("Validator Calculator.calculateResult()", () => {
 			.getResult()
 		).to.equal(Math.pow(25, -12.5));
 
+		// Brackets
+		expect(new Calculator("(-25/12)^45")
+			.getResult()
+		).to.equal(Math.pow(-25 / 12, 45));
+
 		// Mixed
 		expect(new Calculator("2--2*2")
 			.getResult()
 		).to.equal(6);
+
+		expect(new Calculator("25^0-1")
+			.getResult()
+		).to.equal(0);
 	});
 })
