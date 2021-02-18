@@ -4,6 +4,7 @@ module.exports = (app) => {
 	app.get("/", (req, res) => {
 		if (!req.query.input) {
 			return res.json({
+				status: 204,
 				message: "Welcome. Get started by reading the README.md file."
 			})
 		}
