@@ -4,6 +4,7 @@ module.exports = (app) => {
 	app.get("/", (req, res) => {
 		if (!req.query.input) {
 			return res.json({
+				status: 204,
 				message: "Welcome. Get started by reading the README.md file."
 			})
 		}
@@ -15,12 +16,14 @@ module.exports = (app) => {
 				if (value !== false) {
 					res.json({
 						status: 200,
+						input: req.query.input,
 						result: value
 					})
 				}
 				else {
 					res.json({
 						status: 422,
+						input: req.query.input,
 						message: "Invalid input"
 					});
 				}

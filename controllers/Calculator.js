@@ -64,7 +64,10 @@ class Calculator {
 				element = this.input[i];
 			}
 		}
-		retArr.push(element);
+
+		if (element.length) {
+			retArr.push(element);
+		}
 
 		for (let i = 1; i < retArr.length; i++) {
 			const previousElement = retArr[i - 1];
