@@ -9,7 +9,7 @@ const app = express();
 require("./controllers/routes")(app);
 
 // Error 404
-app.use(function (req, res) {
+app.use((req, res) => {
 	return res.sendStatus(404);
 });
 
