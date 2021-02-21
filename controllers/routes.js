@@ -3,8 +3,7 @@ const Calculator = require("./Calculator");
 module.exports = (app) => {
 	app.get("/", (req, res) => {
 		if (!req.query.input) {
-			return res.json({
-				status: 204,
+			return res.status(204).json({
 				message: "Welcome. Get started by reading the README.md file."
 			})
 		}
@@ -14,15 +13,13 @@ module.exports = (app) => {
 		})
 			.then(value => {
 				if (value !== false) {
-					res.json({
-						status: 200,
+					res.status(200).json({
 						input: req.query.input,
 						result: value
 					})
 				}
 				else {
-					res.json({
-						status: 422,
+					res.status(422).json({
 						input: req.query.input,
 						message: "Invalid input"
 					});
@@ -30,8 +27,7 @@ module.exports = (app) => {
 			})
 			.catch(err => {
 				console.error(err);
-				res.json({
-					status: 500,
+				res.status(500).json({
 					message: "Server error"
 				})
 			});
